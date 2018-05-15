@@ -6,7 +6,7 @@ RUN apt-get update && \
 	a2enmod ssl && \
 	a2ensite default-ssl
 
-COPY wp-stateless-media /usr/src/wordpress/wp-content/plugins/wp-stateless-media
+COPY wp-stateless /usr/src/wordpress/wp-content/plugins/wp-stateless-media
 RUN chown -R www-data:www-data /usr/src/wordpress/wp-content/plugins/
 
 EXPOSE 80

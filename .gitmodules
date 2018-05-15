@@ -1,0 +1,3 @@
+[submodule "wp-stateless"]
+	path = wp-stateless
+	url = https://github.com/wpCloud/wp-stateless.git
