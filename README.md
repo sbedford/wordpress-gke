@@ -28,9 +28,9 @@ gcloud sql instances create wordpress-sql --tier=db-n1-standard-1 --region=austr
 
 -- lookup the instance name like {project}:{region}:{instance name}
 
-gcloud sql users set-password root % --instance wordpress-sql --password pass@word1
+gcloud sql users set-password root % --instance wordpress-sql --password {password}
 
-gcloud sql users create proxyuser cloudsqlproxy~% --instance=wordpress-sql --password=pass@word1
+gcloud sql users create proxyuser cloudsqlproxy~% --instance=wordpress-sql --password={password}
 
 ## Deploy Wordpress on Kubernetes
 
@@ -40,7 +40,7 @@ Then.
 
 kubectl create secret generic cloudsql-instance-credentials --from-file=credentials.json=wordpress-gke-cloudsql.json
 
-kubectl create secret generic cloudsql-db-credentials --from-literal=username=proxyuser --from-literal=password=pass@word1
+kubectl create secret generic cloudsql-db-credentials --from-literal=username=proxyuser --from-literal=password={password}
 
 ### Build custom Wordpress image
 
@@ -55,3 +55,7 @@ docker push gcr.io/{project}/wordpress-custom:v1.0 .
 kubectl apply -f mysql-wordpress-deployment.yaml
 
 kubectl apply -f mysql-wordpress-service.yaml
+
+# Git Submodule
+
+The WP plugins are referencing other github repositories.  Check this gist out for working with submodules https://gist.github.com/gitaarik/8735255
